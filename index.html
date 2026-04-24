@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ARANHA STORE</title>
+
+<style>
+body{
+  margin:0;
+  font-family: Arial;
+  background:#12001f;
+  color:white;
+  text-align:center;
+}
+
+.login{
+  margin-top:100px;
+}
+
+input[type=text]{
+  padding:10px;
+  width:200px;
+  border:none;
+  border-radius:5px;
+}
+
+button{
+  padding:10px 20px;
+  margin-top:10px;
+  border:none;
+  background:#a000ff;
+  color:white;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.painel{
+  display:none;
+  padding:20px;
+}
+
+.box{
+  background:#1a0030;
+  border-radius:20px;
+  padding:20px;
+  margin:20px;
+  box-shadow:0 0 20px #a000ff;
+  text-align:left;
+}
+
+h1{
+  color:#d400ff;
+}
+
+.slider{
+  width:100%;
+}
+
+.linha{
+  margin-top:10px;
+}
+
+.valor{
+  float:right;
+}
+
+.whats{
+  background:#00ff66;
+  color:black;
+  font-weight:bold;
+  margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="login" id="login">
+  <h1>🕷️ ARANHA STORE 🕸️</h1>
+  <input type="text" id="key" placeholder="Digite a KEY">
+  <br>
+  <button onclick="entrar()">ENTRAR</button>
+  <p id="msg"></p>
+</div>
+
+<!-- PAINEL -->
+<div class="painel" id="painel">
+
+<h1>🕷️ ARANHA STORE</h1>
+
+<div class="box">
+
+<h3>AIM / HS</h3>
+
+<div class="linha">
+<input type="checkbox" onclick="toggle(this)"> AUXÍLIO ARANHA
+</div>
+
+<div class="linha">
+<input type="checkbox" onclick="toggle(this)"> AIM SISTEN
+</div>
+
+<div class="linha">
+<input type="checkbox" onclick="toggle(this)"> AIM TRUE
+</div>
+
+<h3>REGULAGEM</h3>
+
+<div class="linha">
+FOV <span id="fov_val" class="valor">50</span>
+<input type="range" min="0" max="100" value="50" class="slider" oninput="update(this,'fov_val')">
+</div>
+
+<div class="linha">
+No Recoil <span id="rec_val" class="valor">50</span>
+<input type="range" min="0" max="100" value="50" class="slider" oninput="update(this,'rec_val')">
+</div>
+
+<h3>VISUAL</h3>
+
+<div class="linha">
+<input type="checkbox" onclick="toggle(this)"> ESP Linha
+</div>
+
+</div>
+
+<button class="whats" onclick="zap()">FALAR NO WHATSAPP</button>
+
+</div>
+
+<script>
+function entrar(){
+  let k = document.getElementById("key").value;
+
+  if(k === "ARANHA"){
+    login.style.display="none";
+    painel.style.display="block";
+  }else{
+    msg.innerText="❌ KEY INVÁLIDA";
+  }
+}
+
+function zap(){
+  window.open("https://wa.me/5512991439382");
+}
+
+function update(slider,id){
+  document.getElementById(id).innerText = slider.value;
+}
+
+function toggle(el){
+  if(el.checked){
+    el.parentElement.style.color="#00ffcc";
+  }else{
+    el.parentElement.style.color="white";
+  }
+}
+</script>
+
+</body>
+</html>
