@@ -3,160 +3,243 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ARANHA STORE</title>
+<title>Toxic Store</title>
 
 <style>
-body{
-  margin:0;
-  font-family: Arial;
-  background:#12001f;
-  color:white;
-  text-align:center;
+body {
+    margin: 0;
+    font-family: Arial;
+    background: black;
+    color: #00ff99;
+    overflow: hidden;
 }
 
-.login{
-  margin-top:100px;
+/* FUNDO */
+canvas {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
-input[type=text]{
-  padding:10px;
-  width:200px;
-  border:none;
-  border-radius:5px;
+/* CAIXA */
+.box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 320px;
+    background: rgba(0,30,0,0.7);
+    border-radius: 10px;
+    box-shadow: 0 0 20px #00ff99;
+    border: 1px solid #00ff99;
 }
 
-button{
-  padding:10px 20px;
-  margin-top:10px;
-  border:none;
-  background:#a000ff;
-  color:white;
-  border-radius:5px;
-  cursor:pointer;
+/* TITULO */
+.title {
+    text-align: center;
+    padding: 10px;
+    background: rgba(0,255,150,0.1);
+    font-size: 18px;
 }
 
-.painel{
-  display:none;
-  padding:20px;
+/* LOGIN */
+.login {
+    padding: 20px;
 }
 
-.box{
-  background:#1a0030;
-  border-radius:20px;
-  padding:20px;
-  margin:20px;
-  box-shadow:0 0 20px #a000ff;
-  text-align:left;
+input {
+    width: 100%;
+    padding: 10px;
+    background: #002200;
+    border: none;
+    color: #00ff99;
+    margin-bottom: 10px;
 }
 
-h1{
-  color:#d400ff;
+button {
+    width: 100%;
+    padding: 10px;
+    background: #00ff99;
+    border: none;
+    font-weight: bold;
 }
 
-.slider{
-  width:100%;
+/* MENU */
+.menu {
+    display: flex;
 }
 
-.linha{
-  margin-top:10px;
+.sidebar {
+    width: 90px;
+    border-right: 1px solid #00ff99;
 }
 
-.valor{
-  float:right;
+.sidebar div {
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
 }
 
-.whats{
-  background:#00ff66;
-  color:black;
-  font-weight:bold;
-  margin-top:15px;
+.sidebar div:hover {
+    background: rgba(0,255,150,0.2);
+}
+
+.content {
+    flex: 1;
+    padding: 10px;
+}
+
+/* ESCONDER */
+.hidden {
+    display: none;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
 }
 </style>
 </head>
 
 <body>
 
+<canvas id="bg"></canvas>
+
 <!-- LOGIN -->
-<div class="login" id="login">
-  <h1>🕷️ ARANHA STORE 🕸️</h1>
-  <input type="text" id="key" placeholder="Digite a KEY">
-  <br>
-  <button onclick="entrar()">ENTRAR</button>
-  <p id="msg"></p>
+<div class="box" id="login">
+    <div class="title">TOXIC STORE</div>
+    <div class="login">
+        <input id="key" placeholder="Digite a Key">
+        <button onclick="entrar()">ENTRAR</button>
+    </div>
 </div>
 
 <!-- PAINEL -->
-<div class="painel" id="painel">
+<div class="box hidden" id="painel">
+    <div class="title">AUXILIO TOXIC STORE</div>
 
-<h1>🕷️ ARANHA STORE</h1>
+    <div class="menu">
+        <div class="sidebar">
+            <div onclick="trocar('aimbot')">AIMBOT</div>
+            <div onclick="trocar('fps')">FPS</div>
+            <div onclick="trocar('extra')">EXTRA</div>
+            <div onclick="trocar('info')">INFO</div>
+        </div>
 
-<div class="box">
+        <div class="content">
 
-<h3>AIM / HS</h3>
+            <!-- AIMBOT -->
+            <div id="aimbot">
+                <label><input type="checkbox"> Alto ajuste de alvo</label>
+                <label><input type="checkbox"> Rastreamento suave</label>
+                <label><input type="checkbox"> Aim trick</label>
+                <label><input type="checkbox"> Aim lock</label>
+                <label><input type="checkbox"> ATIVAR FOV</label>
+                <br>
+                FOV
+                <input type="range">
+                <br>
+                FORÇA DA PUXADA
+                <input type="range">
+                <br><br>
+                <button>INJETAR PASTAS</button>
+            </div>
 
-<div class="linha">
-<input type="checkbox" onclick="toggle(this)"> AUXÍLIO ARANHA
-</div>
+            <!-- FPS -->
+            <div id="fps" class="hidden">
+                <label><input type="checkbox"> +120 FPS</label>
+                <label><input type="checkbox"> Aumentar contraste</label>
+                <label><input type="checkbox"> Aumentar fluidez</label>
+                <label><input type="checkbox"> Aumentar deslize</label>
+            </div>
 
-<div class="linha">
-<input type="checkbox" onclick="toggle(this)"> AIM SISTEN
-</div>
+            <!-- EXTRA -->
+            <div id="extra" class="hidden">
+                <label><input type="checkbox"> 20% no recoil</label>
+                <label><input type="checkbox"> 90% auxilio recoil</label>
+            </div>
 
-<div class="linha">
-<input type="checkbox" onclick="toggle(this)"> AIM TRUE
-</div>
+            <!-- INFO -->
+            <div id="info" class="hidden">
+                Criado por TOXIC STORE 🚀
+            </div>
 
-<h3>REGULAGEM</h3>
-
-<div class="linha">
-FOV <span id="fov_val" class="valor">50</span>
-<input type="range" min="0" max="100" value="50" class="slider" oninput="update(this,'fov_val')">
-</div>
-
-<div class="linha">
-No Recoil <span id="rec_val" class="valor">50</span>
-<input type="range" min="0" max="100" value="50" class="slider" oninput="update(this,'rec_val')">
-</div>
-
-<h3>VISUAL</h3>
-
-<div class="linha">
-<input type="checkbox" onclick="toggle(this)"> ESP Linha
-</div>
-
-</div>
-
-<button class="whats" onclick="zap()">FALAR NO WHATSAPP</button>
-
+        </div>
+    </div>
 </div>
 
 <script>
-function entrar(){
-  let k = document.getElementById("key").value;
+// LOGIN COM KEY
+function entrar() {
+    let key = document.getElementById("key").value;
 
-  if(k === "ARANHA"){
-    login.style.display="none";
-    painel.style.display="block";
-  }else{
-    msg.innerText="❌ KEY INVÁLIDA";
-  }
+    if (key === "TOXICSTORE") {
+        document.getElementById("login").classList.add("hidden");
+        document.getElementById("painel").classList.remove("hidden");
+    } else {
+        alert("Key incorreta!");
+    }
 }
 
-function zap(){
-  window.open("https://wa.me/5512991439382");
+// TROCAR MENU
+function trocar(sec) {
+    document.querySelectorAll(".content > div").forEach(e => e.classList.add("hidden"));
+    document.getElementById(sec).classList.remove("hidden");
 }
 
-function update(slider,id){
-  document.getElementById(id).innerText = slider.value;
+// FUNDO ANIMADO
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+let pontos = [];
+
+for (let i = 0; i < 70; i++) {
+    pontos.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: Math.random() - 0.5,
+        vy: Math.random() - 0.5
+    });
 }
 
-function toggle(el){
-  if(el.checked){
-    el.parentElement.style.color="#00ffcc";
-  }else{
-    el.parentElement.style.color="white";
-  }
+function animar() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    pontos.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+        ctx.fillStyle = "#00ff99";
+        ctx.fillRect(p.x,p.y,2,2);
+    });
+
+    for (let i = 0; i < pontos.length; i++) {
+        for (let j = i; j < pontos.length; j++) {
+            let dx = pontos[i].x - pontos[j].x;
+            let dy = pontos[i].y - pontos[j].y;
+            let dist = Math.sqrt(dx*dx + dy*dy);
+
+            if (dist < 120) {
+                ctx.strokeStyle = "rgba(0,255,150,0.2)";
+                ctx.beginPath();
+                ctx.moveTo(pontos[i].x, pontos[i].y);
+                ctx.lineTo(pontos[j].x, pontos[j].y);
+                ctx.stroke();
+            }
+        }
+    }
+
+    requestAnimationFrame(animar);
 }
+
+animar();
 </script>
 
 </body>
